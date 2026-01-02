@@ -327,3 +327,57 @@ body.dark .theme-toggle .bx-moon { opacity: 1; transform: rotate(0deg); }
     .container h1 { font-size: 30px; }
     .toggle-panel h1 { font-size: 28px; }
 }
+@media screen and (max-width: 650px) {
+    .container {
+        width: 95%;
+        height: auto;
+        min-height: 100vh;
+        margin: 10px auto;
+        border-radius: 20px;
+    }
+
+    .form-box {
+        width: 100%;
+        height: auto;
+        padding: 30px 20px;
+    }
+
+    .toggle-box::before {
+        width: 200%;
+        border-radius: 100px;
+    }
+
+    .toggle-panel h1 {
+        font-size: 28px;
+    }
+
+    .social-icons a {
+        padding: 12px;
+        font-size: 28px;
+    }
+
+    .theme-toggle {
+        width: 45px;
+        height: 45px;
+        top: 15px;
+        right: 15px;
+    }
+
+    .theme-toggle i {
+        font-size: 22px;
+    }
+
+    .dashboard {
+        padding: 40px 20px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .logout-btn {
+        width: 180px;
+        height: 48px;
+        font-size: 16px;
+    }
+}
