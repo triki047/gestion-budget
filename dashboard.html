@@ -170,7 +170,7 @@
         const { createClient } = supabase;
         const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
-        // --- THÈME (même système que login) ---
+        // --- THÈME ---
         const themeToggle = document.querySelector('.theme-toggle');
         const body = document.body;
 
@@ -199,7 +199,7 @@
             const { data: { session } } = await supabaseClient.auth.getSession();
 
             if (!session) {
-                window.location.href = "SignUp_LogIn_Form.html";
+                window.location.href = "index.html"; // ← CHANGÉ ICI
                 return;
             }
 
@@ -210,13 +210,13 @@
         // --- DÉCONNEXION ---
         document.getElementById('logout-btn').addEventListener('click', async () => {
             await supabaseClient.auth.signOut();
-            window.location.href = "SignUp_LogIn_Form.html";
+            window.location.href = "index.html"; // ← CHANGÉ ICI
         });
 
         // --- PROTECTION ---
         supabaseClient.auth.onAuthStateChange((event, session) => {
             if (!session) {
-                window.location.href = "SignUp_LogIn_Form.html";
+                window.location.href = "index.html"; // ← CHANGÉ ICI
             }
         });
 
