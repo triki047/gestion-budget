@@ -191,8 +191,8 @@ document.getElementById('google-login')?.addEventListener('click', async (e) => 
     const { error } = await supabaseClient.auth.signInWithOAuth({
         provider: 'google',
         options: {
-            redirectTo: window.location.origin + '/dashboard.html'
-        }
+    redirectTo: 'https://gestion-budget-three.vercel.app/dashboard.html'
+}
     });
     if (error) console.error(error);
 });
@@ -203,8 +203,8 @@ document.getElementById('github-login')?.addEventListener('click', async (e) => 
     const { error } = await supabaseClient.auth.signInWithOAuth({
         provider: 'github',
         options: {
-            redirectTo: window.location.origin + '/dashboard.html'
-        }
+    redirectTo: 'https://gestion-budget-three.vercel.app/dashboard.html'
+}
     });
     if (error) console.error(error);
 });
@@ -225,4 +225,5 @@ document.querySelectorAll('.eye-toggle').forEach(icon => {
             icon.classList.replace('bx-hide', 'bx-show');
         }
     });
+
 });
