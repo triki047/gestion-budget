@@ -297,186 +297,253 @@ body.dark .theme-toggle i { color: #e0e0ff; }
 body.dark .theme-toggle .bx-sun { opacity: 0; transform: rotate(-90deg); }
 body.dark .theme-toggle .bx-moon { opacity: 1; transform: rotate(0deg); }
 
-/* --- RESPONSIVE - CORRECTIONS COMPLÈTES POUR SMARTPHONE --- */
-@media screen and (max-width: 850px) {
+/* --- RESPONSIVE ULTRA-OPTIMISÉ (GARDE L'ANIMATION) --- */
+
+/* Tablettes moyennes */
+@media screen and (max-width: 900px) and (min-width: 651px) {
+    .container {
+        width: 95%;
+        height: 540px;
+    }
+    
+    .form-box {
+        padding: 35px 25px;
+    }
+    
+    .toggle-panel {
+        padding: 0 25px;
+    }
+    
+    .toggle-panel h1 {
+        font-size: 28px;
+        white-space: normal;
+        line-height: 1.2;
+    }
+    
+    .toggle-panel p {
+        font-size: 13px;
+    }
+    
+    .toggle-panel .btn {
+        width: 160px;
+        font-size: 15px;
+    }
+}
+
+/* Smartphones et petites tablettes - GARDE ANIMATION COMPLÈTE */
+@media screen and (max-width: 650px) {
     body {
-        padding: 10px;
-        align-items: flex-start;
+        padding: 5px;
     }
 
     .container {
         width: 100%;
         max-width: 100%;
-        height: auto;
-        min-height: 100vh;
+        height: 100vh;
+        min-height: 600px;
         margin: 0;
         border-radius: 0;
-        display: flex;
-        flex-direction: column;
     }
 
-    /* Les formulaires prennent toute la largeur */
+    /* Formulaires responsive mais GARDE la structure 50/50 */
     .form-box {
-        position: relative;
-        width: 100%;
-        height: auto;
-        min-height: calc(100vh - 80px);
-        right: auto !important;
-        padding: 60px 25px 30px;
-        transition: none;
+        width: 50%;
+        padding: 30px 15px;
+        font-size: 14px;
     }
 
-    /* Masquer le panneau toggle sur mobile */
-    .toggle-box,
-    .toggle-panel {
-        display: none !important;
-    }
-
-    /* Navigation entre formulaires sur mobile */
-    .form-box.register {
-        visibility: visible;
-        display: none;
-    }
-
-    .container.active .form-box.login {
-        display: none;
-    }
-
-    .container.active .form-box.register {
-        display: flex;
-    }
-
-    /* Ajustements des éléments */
     .container h1 {
-        font-size: 28px;
-        margin: 10px 0 20px;
-    }
-
-    .input-box {
-        margin: 15px 0;
-    }
-
-    .input-box input {
-        padding: 12px 50px 12px 18px;
-        font-size: 15px;
-    }
-
-    .btn {
-        height: 46px;
-        font-size: 15px;
-        margin-top: 12px;
-    }
-
-    .social-icons {
-        margin-top: 15px;
-        flex-wrap: wrap;
-    }
-
-    .social-icons a {
-        padding: 8px;
-        font-size: 22px;
-        margin: 5px;
-    }
-
-    .theme-toggle {
-        top: 15px;
-        right: 15px;
-        width: 45px;
-        height: 45px;
-    }
-
-    .theme-toggle i {
-        font-size: 22px;
+        font-size: clamp(20px, 5vw, 28px);
+        margin: 0 0 15px 0;
+        white-space: normal;
+        line-height: 1.2;
     }
 
     .container p {
-        font-size: 13px;
+        font-size: clamp(11px, 3vw, 13px);
         margin: 8px 0;
     }
 
-    .forgot-link {
-        margin: -5px 0 12px;
-    }
-
-    .forgot-link a {
-        font-size: 13px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .container h1 {
-        font-size: 26px;
-    }
-
-    .form-box {
-        padding: 50px 20px 25px;
+    .input-box {
+        margin: 12px 0;
     }
 
     .input-box input {
-        padding: 11px 45px 11px 16px;
-        font-size: 14px;
+        padding: 11px 45px 11px 15px;
+        font-size: clamp(13px, 3.5vw, 15px);
+    }
+
+    .input-box i {
+        right: 15px;
+        font-size: clamp(16px, 4vw, 18px);
+    }
+
+    .input-box .eye-toggle {
+        right: 42px;
+        font-size: clamp(16px, 4vw, 18px);
+    }
+
+    .forgot-link {
+        margin: -5px 0 10px;
+    }
+
+    .forgot-link a {
+        font-size: clamp(11px, 3vw, 13px);
     }
 
     .btn {
-        height: 44px;
-        font-size: 14px;
+        height: clamp(40px, 10vw, 44px);
+        font-size: clamp(13px, 3.5vw, 15px);
+        margin-top: 10px;
+    }
+
+    .social-icons {
+        margin-top: 12px;
+        flex-wrap: wrap;
+        gap: 8px;
     }
 
     .social-icons a {
         padding: 7px;
-        font-size: 20px;
+        font-size: clamp(18px, 5vw, 20px);
+        margin: 0 4px;
     }
 
+    /* TOGGLE PANEL - ADAPTÉ MAIS GARDE L'ANIMATION */
+    .toggle-box::before {
+        width: 250%;
+        border-radius: 120px;
+    }
+
+    .toggle-panel {
+        width: 50%;
+        padding: 0 12px;
+    }
+
+    .toggle-panel h1 {
+        font-size: clamp(18px, 4.5vw, 24px) !important;
+        white-space: normal;
+        line-height: 1.1;
+        margin-bottom: 10px;
+    }
+
+    .toggle-panel p {
+        font-size: clamp(11px, 3vw, 13px);
+        margin: 8px 0 15px;
+        line-height: 1.3;
+    }
+
+    .toggle-panel .btn {
+        width: clamp(110px, 30vw, 140px);
+        height: clamp(38px, 9vw, 42px);
+        font-size: clamp(12px, 3.5vw, 14px);
+        padding: 0 10px;
+    }
+
+    /* Bouton thème */
     .theme-toggle {
-        width: 42px;
-        height: 42px;
+        top: 12px;
+        right: 12px;
+        width: clamp(38px, 10vw, 44px);
+        height: clamp(38px, 10vw, 44px);
     }
 
     .theme-toggle i {
-        font-size: 20px;
+        font-size: clamp(18px, 5vw, 22px);
+    }
+
+    /* Messages d'erreur */
+    .error-message {
+        font-size: clamp(11px, 3vw, 13px);
+        padding: 8px;
+    }
+}
+
+/* Très petits smartphones (moins de 360px) */
+@media screen and (max-width: 360px) {
+    .form-box {
+        padding: 25px 10px;
+    }
+
+    .toggle-panel {
+        padding: 0 8px;
+    }
+
+    .input-box {
+        margin: 10px 0;
+    }
+
+    .social-icons a {
+        padding: 6px;
+        margin: 0 3px;
+    }
+}
+
+/* Smartphones en mode paysage */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .container {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .form-box {
+        padding: 20px 15px;
+        min-height: 100vh;
+    }
+
+    .container h1 {
+        font-size: 22px;
+        margin: 5px 0 10px;
+    }
+
+    .input-box {
+        margin: 8px 0;
+    }
+
+    .toggle-panel h1 {
+        font-size: 20px !important;
+        margin-bottom: 8px;
+    }
+
+    .toggle-panel p {
+        font-size: 12px;
+        margin: 5px 0 10px;
     }
 }
 
 /* Modal Responsive */
 #forgot-modal {
-    padding: 15px;
+    padding: 10px;
 }
 
 #forgot-modal > div {
-    width: 95% !important;
+    width: 90% !important;
     max-width: 400px;
     padding: 25px 20px !important;
 }
 
 #forgot-modal h2 {
-    font-size: 22px;
+    font-size: clamp(18px, 5vw, 22px);
     margin-bottom: 10px;
 }
 
 #forgot-modal p {
-    font-size: 14px;
+    font-size: clamp(12px, 3.5vw, 14px);
 }
 
 #forgot-modal input {
-    font-size: 15px;
+    font-size: clamp(13px, 3.5vw, 15px);
+    padding: 10px !important;
 }
 
 #forgot-modal button {
-    font-size: 15px;
-    padding: 10px 18px !important;
+    font-size: clamp(13px, 3.5vw, 15px);
+    padding: 10px 16px !important;
+    margin: 5px !important;
 }
 
-@media screen and (max-width: 400px) {
-    #forgot-modal h2 {
-        font-size: 20px;
-    }
-
-    #forgot-modal p {
-        font-size: 13px;
-    }
-
-    #forgot-modal button {
-        font-size: 14px;
-        padding: 9px 15px !important;
+@media screen and (max-width: 360px) {
+    #forgot-modal > div {
+        padding: 20px 15px !important;
     }
 }
