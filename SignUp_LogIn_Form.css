@@ -25,7 +25,7 @@ body.dark {
 .container {
     position: relative;
     width: 850px;
-    height: 580px; /* Légère augmentation pour plus de confort avec le champ confirmation */
+    height: 580px;
     background: #fff;
     margin: 20px;
     border-radius: 30px;
@@ -40,8 +40,8 @@ body.dark .container {
 
 /* --- TITRES ET TEXTES --- */
 .container h1 {
-    font-size: 34px; /* Un peu plus grand pour un bon cadrage */
-    margin: -10px 0 20px 0; /* CORRECTION : Margin négatif pour remonter le titre et le "cadrer" comme avant */
+    font-size: 34px;
+    margin: -10px 0 20px 0;
     transition: color 0.6s ease;
 }
 body.dark .container h1 {
@@ -63,11 +63,11 @@ form { width: 100%; }
     background: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centre parfaitement verticalement */
+    justify-content: center;
     align-items: center;
     color: #333;
     text-align: center;
-    padding: 40px; /* Retour à 40px pour un bon espacement */
+    padding: 40px;
     z-index: 1;
     transition: .6s ease-in-out 1.2s, visibility 0s 1s, background 0.6s ease, color 0.6s ease;
 }
@@ -83,7 +83,7 @@ body.dark .form-box {
 /* --- INPUTS --- */
 .input-box {
     position: relative;
-    margin: 20px 0; /* Espace raisonnable entre les champs */
+    margin: 20px 0;
     width: 100%;
 }
 .input-box input {
@@ -108,7 +108,6 @@ body.dark .input-box input {
 body.dark .input-box input::placeholder {
     color: #aaa;
 }
-
 .input-box i {
     position: absolute;
     right: 20px;
@@ -296,37 +295,7 @@ body.dark .theme-toggle i { color: #e0e0ff; }
 body.dark .theme-toggle .bx-sun { opacity: 0; transform: rotate(-90deg); }
 body.dark .theme-toggle .bx-moon { opacity: 1; transform: rotate(0deg); }
 
-/* --- RESPONSIVE --- */
-@media screen and (max-width: 650px) {
-    .container {
-        width: 95%;
-        height: calc(100vh - 20px);
-        margin: 10px;
-        border-radius: 20px;
-    }
-    .form-box {
-        padding: 20px;
-        width: 100%;
-        height: 70%;
-    }
-    .input-box {
-        margin: 18px 0;
-    }
-    .theme-toggle {
-        top: 15px;
-        right: 15px;
-        width: 45px;
-        height: 45px;
-    }
-    .theme-toggle i {
-        font-size: 22px;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .container h1 { font-size: 30px; }
-    .toggle-panel h1 { font-size: 28px; }
-}
+/* --- RESPONSIVE - CORRECTIONS POUR SMARTPHONE --- */
 @media screen and (max-width: 650px) {
     .container {
         width: 95%;
@@ -339,45 +308,77 @@ body.dark .theme-toggle .bx-moon { opacity: 1; transform: rotate(0deg); }
     .form-box {
         width: 100%;
         height: auto;
-        padding: 30px 20px;
+        padding: 40px 20px 30px 20px;
     }
 
-    .toggle-box::before {
-        width: 200%;
-        border-radius: 100px;
+    .input-box {
+        margin: 18px 0;
     }
 
-    .toggle-panel h1 {
-        font-size: 28px;
+    .btn {
+        margin-top: 15px;
+    }
+
+    .social-icons {
+        margin-top: 15px;
     }
 
     .social-icons a {
-        padding: 12px;
-        font-size: 28px;
+        padding: 8px;
+        font-size: 22px;
     }
 
     .theme-toggle {
-        width: 45px;
-        height: 45px;
         top: 15px;
         right: 15px;
+        width: 45px;
+        height: 45px;
     }
 
     .theme-toggle i {
         font-size: 22px;
     }
 
-    .dashboard {
-        padding: 40px 20px;
+    /* Correction clé : le texte du panneau latéral ne déborde plus */
+    .toggle-panel {
+        padding: 0 20px;
     }
 
-    h1 {
-        font-size: 32px;
+    .toggle-panel h1 {
+        font-size: 26px !important;
+        white-space: normal;
+        line-height: 1.2;
+        margin-bottom: 15px;
     }
 
-    .logout-btn {
-        width: 180px;
-        height: 48px;
-        font-size: 16px;
+    .toggle-panel p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .toggle-panel .btn {
+        width: 150px;
+        height: 44px;
+        font-size: 15px;
+    }
+
+    /* Le fond animé (toggle-box::before) adapté mobile */
+    .toggle-box::before {
+        width: 200%;
+        border-radius: 100px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .container h1 {
+        font-size: 30px;
+    }
+
+    .toggle-panel h1 {
+        font-size: 24px !important;
+    }
+
+    .form-box {
+        padding: 30px 15px;
     }
 }
