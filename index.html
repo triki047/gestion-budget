@@ -34,7 +34,7 @@
                     <!-- FIN AJOUT -->
                 </div>
                 <div class="forgot-link">
-                    <a href="#">Mot de passe oublié ?</a>
+    <a href="#" id="forgot-password-link">Mot de passe oublié ?</a>
                 </div>
                 <div class="error-message" id="login-error"></div>
                 <button type="submit" class="btn">Se connecter</button>
@@ -97,5 +97,16 @@
         </div>
     </div>
     <script src="SignUp_LogIn_Form.js"></script>
+<!-- Modal Mot de passe oublié -->
+<div id="forgot-modal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 100; justify-content: center; align-items: center;">
+    <div style="background: #fff; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center;">
+        <h2>Réinitialiser le mot de passe</h2>
+        <p>Entre ton email, on t'enverra un lien pour changer ton mot de passe.</p>
+        <input type="email" id="reset-email" placeholder="Ton email" style="width: 100%; padding: 12px; margin: 15px 0; border-radius: 8px; border: 1px solid #ccc;">
+        <div id="reset-message" style="margin: 15px 0; min-height: 20px;"></div>
+        <button id="send-reset-btn" style="background: #7494ec; color: white; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer;">Envoyer</button>
+        <button id="close-modal" style="background: #ccc; color: #333; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px;">Annuler</button>
+    </div>
+</div>
 </body>
 </html>
