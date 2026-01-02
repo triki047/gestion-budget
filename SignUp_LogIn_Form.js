@@ -223,4 +223,48 @@ document.querySelectorAll('.eye-toggle').forEach(icon => {
             icon.classList.replace('bx-hide', 'bx-show');
         }
     });
+// --- MOT DE PASSE OUBLIÉ ---
+const forgotLink = document.getElementById('forgot-password-link');
+const modal = document.getElementById('forgot-modal');
+const closeModal = document.getElementById('close-modal');
+const sendResetBtn = document.getElementById('send-reset-btn');
+const resetEmail = document.getElementById('reset-email');
+const resetMessage = document.getElementById('reset-message');
+
+forgotLink?.addEventListener('click', (e) => {
+    e.preventDefault();
+    modal.style.display = 'flex';
+});
+
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+    resetMessage.textContent = '';
+    resetEmail.value = '';
+});
+
+sendResetBtn.addEventListener('click', async () => {
+    const email = resetEmail.value.trim();
+    if (!email) {
+        resetMessage.textContent = "Entre un email valide.";
+        resetMessage.style.color = 'red';
+        return;
+    }
+
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+        redirectTo: 'https://gestion-budget-three.vercel.app/index.html' // Lien de retour après changement
+    });
+
+    if (error) {
+        resetMessage.textContent = "Erreur : " + error.message;
+        resetMessage.style.color = 'red';
+    } else {
+        resetMessage.textContent = "Lien envoyé ! Vérifie tes mails (et spams).";
+        resetMessage.style.color = 'green';
+        setTimeout(() => {
+            modal.style.display = 'none';
+            resetMessage.textContent = '';
+            resetEmail.value = '';
+        }, 4000);
+    }
+});
 });
