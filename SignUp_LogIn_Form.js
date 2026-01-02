@@ -36,7 +36,10 @@ footer.style.color = '#666';
 footer.style.zIndex = '10';
 body.appendChild(footer);
 
-if (body.classList.contains('dark')) footer.style.color = '#aaa';
+// Adaptation automatique au mode sombre
+if (body.classList.contains('dark')) {
+    footer.style.color = '#aaa';
+}
 
 // --- THÈME AUTO SELON L'HEURE ---
 function isNightTime() {
@@ -47,8 +50,10 @@ function isNightTime() {
 function applyAutoTheme() {
     if (isNightTime()) {
         body.classList.add('dark');
+        footer.style.color = '#aaa';
     } else {
         body.classList.remove('dark');
+        footer.style.color = '#666';
     }
 }
 applyAutoTheme();
@@ -56,6 +61,7 @@ setInterval(applyAutoTheme, 3600000);
 
 themeToggle.addEventListener('click', () => {
     body.classList.toggle('dark');
+    footer.style.color = body.classList.contains('dark') ? '#aaa' : '#666';
 });
 
 // --- BONJOUR / BONSOIR ---
@@ -73,34 +79,28 @@ setInterval(updateGreeting, 3600000);
 if (registerForm) {
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const username = document.getElementById('register-username').value.trim();
         const email = document.getElementById('register-email').value.trim();
         const password = document.getElementById('register-password').value;
         const confirmPassword = document.getElementById('confirm-password').value;
-
         registerError.classList.remove('show');
         registerError.textContent = '';
         registerError.style.background = '';
-
         if (!username || !email || !password || !confirmPassword) {
             registerError.textContent = "Veuillez remplir tous les champs.";
             registerError.classList.add('show');
             return;
         }
-
         if (password.length < 6) {
             registerError.textContent = "Le mot de passe doit faire au moins 6 caractères.";
             registerError.classList.add('show');
             return;
         }
-
         if (password !== confirmPassword) {
             registerError.textContent = "Les mots de passe ne correspondent pas.";
             registerError.classList.add('show');
             return;
         }
-
         const { data, error } = await supabaseClient.auth.signUp({
             email: email,
             password: password,
@@ -108,7 +108,6 @@ if (registerForm) {
                 data: { username: username }
             }
         });
-
         if (error || (data.user && data.user.identities && data.user.identities.length === 0)) {
             registerError.textContent = error?.message?.includes('duplicate') || data.user?.identities?.length === 0
                 ? "Cet email est déjà utilisé."
@@ -118,7 +117,6 @@ if (registerForm) {
             registerError.textContent = "Inscription réussie ! Vérifiez votre boîte mail pour confirmer.";
             registerError.style.background = "#51cf66";
             registerError.classList.add('show');
-
             setTimeout(() => {
                 registerForm.reset();
                 container.classList.remove('active');
@@ -130,39 +128,30 @@ if (registerForm) {
 // --- CONNEXION (NOM D'UTILISATEUR OU EMAIL) ---
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const identifier = loginForm.querySelector('input[type="text"]').value.trim();
     const password = loginForm.querySelector('input[type="password"]').value;
-
     loginErrorMsg.classList.remove('show');
     loginErrorMsg.textContent = '';
     loginErrorMsg.style.background = '';
-
     if (!identifier || !password) {
         loginErrorMsg.textContent = "Veuillez remplir tous les champs.";
         loginErrorMsg.classList.add('show');
         return;
     }
-
     let email = identifier;
-
     if (!identifier.includes('@')) {
         const { data: emailData, error: funcError } = await supabaseClient.rpc('get_email_from_username', { p_username: identifier });
-
         if (funcError || !emailData) {
             loginErrorMsg.textContent = "Nom d'utilisateur ou mot de passe incorrect.";
             loginErrorMsg.classList.add('show');
             return;
         }
-
         email = emailData;
     }
-
     const { data, error } = await supabaseClient.auth.signInWithPassword({
         email: email,
         password: password
     });
-
     if (error) {
         loginErrorMsg.textContent = "Nom d'utilisateur ou mot de passe incorrect.";
         loginErrorMsg.classList.add('show');
@@ -170,7 +159,6 @@ loginForm.addEventListener('submit', async (e) => {
         loginErrorMsg.textContent = "Connexion réussie ! Bienvenue 😉";
         loginErrorMsg.style.background = "#51cf66";
         loginErrorMsg.classList.add('show');
-
         setTimeout(() => {
             window.location.href = "dashboard.html";
         }, 1500);
@@ -223,6 +211,8 @@ document.querySelectorAll('.eye-toggle').forEach(icon => {
             icon.classList.replace('bx-hide', 'bx-show');
         }
     });
+});
+
 // --- MOT DE PASSE OUBLIÉ ---
 const forgotLink = document.getElementById('forgot-password-link');
 const modal = document.getElementById('forgot-modal');
@@ -231,40 +221,49 @@ const sendResetBtn = document.getElementById('send-reset-btn');
 const resetEmail = document.getElementById('reset-email');
 const resetMessage = document.getElementById('reset-message');
 
-forgotLink?.addEventListener('click', (e) => {
-    e.preventDefault();
-    modal.style.display = 'flex';
-});
-
-closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
-    resetMessage.textContent = '';
-    resetEmail.value = '';
-});
-
-sendResetBtn.addEventListener('click', async () => {
-    const email = resetEmail.value.trim();
-    if (!email) {
-        resetMessage.textContent = "Entre un email valide.";
-        resetMessage.style.color = 'red';
-        return;
-    }
-
-    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-        redirectTo: 'https://gestion-budget-three.vercel.app/index.html' // Lien de retour après changement
+if (forgotLink) {
+    forgotLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.style.display = 'flex';
     });
+}
 
-    if (error) {
-        resetMessage.textContent = "Erreur : " + error.message;
-        resetMessage.style.color = 'red';
-    } else {
-        resetMessage.textContent = "Lien envoyé ! Vérifie tes mails (et spams).";
-        resetMessage.style.color = 'green';
-        setTimeout(() => {
-            modal.style.display = 'none';
-            resetMessage.textContent = '';
-            resetEmail.value = '';
-        }, 4000);
-    }
-});
-});
+if (closeModal) {
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+        resetMessage.textContent = '';
+        resetEmail.value = '';
+    });
+}
+
+if (sendResetBtn) {
+    sendResetBtn.addEventListener('click', async () => {
+        const email = resetEmail.value.trim();
+
+        if (!email) {
+            resetMessage.textContent = "Entre un email valide.";
+            resetMessage.style.color = '#ff6b6b';
+            return;
+        }
+
+        resetMessage.textContent = "Envoi en cours...";
+        resetMessage.style.color = '#7494ec';
+
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+            redirectTo: 'https://gestion-budget-three.vercel.app/index.html'
+        });
+
+        if (error) {
+            resetMessage.textContent = "Erreur : " + error.message;
+            resetMessage.style.color = '#ff6b6b';
+        } else {
+            resetMessage.textContent = "Lien envoyé ! Vérifie tes mails (et spams).";
+            resetMessage.style.color = '#51cf66';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                resetMessage.textContent = '';
+                resetEmail.value = '';
+            }, 4000);
+        }
+    });
+}
